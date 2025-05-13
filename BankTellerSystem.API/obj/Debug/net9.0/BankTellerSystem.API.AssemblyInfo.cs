@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BankTellerSystem.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a499b977837b957982b7e8578a3ebb467509fb87")]
 [assembly: System.Reflection.AssemblyProductAttribute("BankTellerSystem.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BankTellerSystem.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
