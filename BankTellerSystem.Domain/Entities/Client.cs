@@ -9,8 +9,7 @@ public sealed class Client : BaseEntity
     public string Doc { get; private set; }
     public DocTypeEnum DocType { get; private set; }
 
-    [JsonIgnore]
-    public virtual ICollection<Account>? Accounts { get; set; }
+    public ICollection<Account>? Accounts { get; set; }
 
     private Client(string name, string doc, DocTypeEnum docType)
     {
