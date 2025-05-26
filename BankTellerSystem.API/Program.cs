@@ -8,7 +8,20 @@ builder.Services.AddRepositoriesConfigurations();
 
 builder.Services.AddControllers();
 
+// Configuração do Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Bank Teller API", Version = "v1" });
+});
+
 var app = builder.Build();
+
+if (!app.Environment.IsProduction())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // Configure the HTTP request pipeline.
 
