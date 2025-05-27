@@ -1,3 +1,5 @@
+using BankTellerSystem.API.Configurations;
+using BankTellerSystem.Application.Configurations;
 using BankTellerSystem.InfraData.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddContextConfigurations();
 builder.Services.AddRepositoriesConfigurations();
+builder.Services.AddMediatRAppServices();
 
 builder.Services.AddControllers();
 
@@ -14,6 +17,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Bank Teller API", Version = "v1" });
 });
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
