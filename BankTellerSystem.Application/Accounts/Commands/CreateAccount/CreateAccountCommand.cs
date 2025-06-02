@@ -2,4 +2,4 @@
 
 namespace BankTellerSystem.Application.Accounts.Commands.CreateAccount;
 
-public record CreateAccountCommand(string clientName, string clientDoc) : IRequest<Guid>;
+public record CreateAccountCommand(string? clientName, string? clientDoc) : IRequest<Guid>;

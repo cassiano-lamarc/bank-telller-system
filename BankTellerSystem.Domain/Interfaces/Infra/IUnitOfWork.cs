@@ -7,5 +7,6 @@ public interface IUnitOfWork : IDisposable
     IAccountHistoryRepository AccountHistories { get; }
     Task BeginTransaction();
     Task<bool> CommitAsync();
+    Task RollbackAsync();
     void Dispose();
 }

@@ -1,6 +1,9 @@
 using BankTellerSystem.API.Configurations;
+using BankTellerSystem.Application.Accounts.Commands.CreateAccount;
 using BankTellerSystem.Application.Configurations;
 using BankTellerSystem.InfraData.Configurations;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddContextConfigurations();
 builder.Services.AddRepositoriesConfigurations();
 builder.Services.AddMediatRAppServices();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateAccountCommand>();
+builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddControllers();
 
