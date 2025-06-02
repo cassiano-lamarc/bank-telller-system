@@ -1,5 +1,6 @@
 ﻿using BankTellerSystem.API.Controllers.BaseControllers;
 using BankTellerSystem.Application.Accounts.Commands.CreateAccount;
+using BankTellerSystem.Application.Accounts.Commands.DeactiveAccount;
 using BankTellerSystem.Application.Accounts.Queries;
 using BankTellerSystem.Domain.Exceptions;
 using MediatR;
@@ -30,5 +31,11 @@ public class AccountController : BaseController
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(BusinessException), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Get([FromQuery] GetAccountsQuery getAccountsQuery) => Ok(await _mediator.Send(getAccountsQuery));
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete([FromQuery] DeactiveAccountCommand request, CancellationToken cancellationToken)
+        => Ok(await _mediator.Send(request, cancellationToken));
 }

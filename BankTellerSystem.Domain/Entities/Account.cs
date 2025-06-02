@@ -9,9 +9,8 @@ public sealed class Account : BaseEntity
     public decimal CurrentBalance { get; private set; }
     public AccountStatusEnum Status { get; private set; }
 
-    private string? DeactivationDoc { get; set; }
+    private string? DeactivationUserDocument { get; set; }
     private DateTime? DeactivationDate { get; set; }
-    private string? DeactivationUser { get; set; }
 
     public ICollection<AccountHistory>? AccountHistories { get; set; }
     public Client? Client { get; set; }
@@ -26,14 +25,14 @@ public sealed class Account : BaseEntity
     public static Account Create(Guid clientGuid)
         => new Account(clientGuid, AccountInitialBalance.Value, AccountStatusEnum.Active);
 
-    public bool IsActive() => string.IsNullOrEmpty(DeactivationDoc) ||
+    public bool IsActive() => string.IsNullOrEmpty(DeactivationUserDocument) ||
         !DeactivationDate.HasValue ||
-        string.IsNullOrEmpty(DeactivationUser);
+        string.IsNullOrEmpty(DeactivationUserDocument);
 
-    public void Deactive(string deactivationDoc, string deactivationUser, DateTime? deactivationDate)
+    public void Deactive(string deactivationDoc)
     {
-        DeactivationDoc = deactivationDoc;
-        DeactivationUser = deactivationUser;
-        DeactivationDate = deactivationDate ?? DateTime.UtcNow;
+        DeactivationUserDocument = deactivationDoc;
+        DeactivationDate = DateTime.UtcNow;
+        Status = AccountStatusEnum.Inactive;
     }
 }

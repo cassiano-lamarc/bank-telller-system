@@ -18,10 +18,11 @@ public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand,
     {
         Client client = Client.Create(request.clientName, request.clientDoc);
         Account account = Account.Create(client.Guid);
-
+        AccountHistory accountHistory = AccountHistory.Create(account.Guid, account.CurrentBalance);
 
         await _unitOfWork.Clients.AddAsync(client);
         await _unitOfWork.Accounts.AddAsync(account);
+        await _unitOfWork.AccountHistories.AddAsync(accountHistory);
 
         var success = await _unitOfWork.CommitAsync();
         if (!success)
