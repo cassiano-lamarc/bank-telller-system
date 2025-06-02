@@ -16,6 +16,10 @@ public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand,
 
     public async Task<Guid> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
+        Account? existingAccount = await _unitOfWork.Accounts.FilterByDoc(request.clientDoc);
+        if (!(existingAccount is null))
+            throw new BusinessException("Already exist an account for this client");
+
         Client client = Client.Create(request.clientName, request.clientDoc);
         Account account = Account.Create(client.Guid);
         AccountHistory accountHistory = AccountHistory.Create(account.Guid, account.CurrentBalance);

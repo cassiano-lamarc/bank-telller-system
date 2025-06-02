@@ -35,4 +35,9 @@ public sealed class Account : BaseEntity
         DeactivationDate = DateTime.UtcNow;
         Status = AccountStatusEnum.Inactive;
     }
+
+    public void RemoveAmount(decimal amount)
+        => CurrentBalance -= amount;
+
+    public void AddAmount(decimal amount) => CurrentBalance += amount;
 }

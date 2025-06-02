@@ -20,5 +20,8 @@ public class ClientMap : IEntityTypeConfiguration<Client>
         builder.Property(c => c.Doc)
             .HasMaxLength(100)
             .IsRequired();
+
+        builder.HasIndex(c => c.Doc)
+            .IsUnique();
     }
 }

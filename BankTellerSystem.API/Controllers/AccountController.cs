@@ -1,4 +1,5 @@
 ﻿using BankTellerSystem.API.Controllers.BaseControllers;
+using BankTellerSystem.Application.Accounts.Commands.BalanceTransferAccount;
 using BankTellerSystem.Application.Accounts.Commands.CreateAccount;
 using BankTellerSystem.Application.Accounts.Commands.DeactiveAccount;
 using BankTellerSystem.Application.Accounts.Queries;
@@ -37,5 +38,13 @@ public class AccountController : BaseController
 
     [HttpDelete]
     public async Task<IActionResult> Delete([FromQuery] DeactiveAccountCommand request, CancellationToken cancellationToken)
+        => Ok(await _mediator.Send(request, cancellationToken));
+
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(BusinessException), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Transfer([FromBody] BalanceTransferAccountCommand request, CancellationToken cancellationToken)
         => Ok(await _mediator.Send(request, cancellationToken));
 }
