@@ -2,8 +2,10 @@ using BankTellerSystem.API.Configurations;
 using BankTellerSystem.Application.Accounts.Commands.CreateAccount;
 using BankTellerSystem.Application.Configurations;
 using BankTellerSystem.InfraData.Configurations;
+using BankTellerSystem.InfraData.Contexts;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateAccountCommand>();
 builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<BankContext>(options =>
+    options.UseInMemoryDatabase("MyInMemoryDb"));
 
 // Configuração do Swagger
 builder.Services.AddEndpointsApiExplorer();

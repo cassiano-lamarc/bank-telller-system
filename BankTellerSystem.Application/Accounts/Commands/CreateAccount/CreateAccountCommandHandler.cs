@@ -16,26 +16,17 @@ public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand,
 
     public async Task<Guid> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
-        try
-        {
-            Client client = Client.Create(request.clientName, request.clientDoc);
-            Account account = Account.Create(client.Guid);
+        Client client = Client.Create(request.clientName, request.clientDoc);
+        Account account = Account.Create(client.Guid);
 
-            await _unitOfWork.BeginTransaction();
 
-            await _unitOfWork.Clients.AddAsync(client);
-            await _unitOfWork.Accounts.AddAsync(account);
+        await _unitOfWork.Clients.AddAsync(client);
+        await _unitOfWork.Accounts.AddAsync(account);
 
-            var success = await _unitOfWork.CommitAsync();
-            if (!success)
-                throw new BusinessException("Occured an error while saving changes. Try again!");
+        var success = await _unitOfWork.CommitAsync();
+        if (!success)
+            throw new BusinessException("Occured an error while saving changes. Try again!");
 
-            return account.Guid;
-        }
-        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
-        {
-            await _unitOfWork.RollbackAsync();
-            throw new BusinessException("The operation was cancelled");
-        }
+        return account.Guid;
     }
-    }
+}
