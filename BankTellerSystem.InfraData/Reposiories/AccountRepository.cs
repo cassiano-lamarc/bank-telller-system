@@ -10,7 +10,10 @@ public class AccountRepository : BaseRepository<Account>, IAccountRepository
     {
     }
 
-    public IQueryable FilterAccount(string clientName, string clientDoc)
-        => _dbSet.Where(a => a.Client.Name.Contains(clientName) || a.Client.Doc.Contains(clientDoc))
-            .AsQueryable();
+    public IQueryable FilterAccount(string? clientName, string? clientDoc)
+        => _dbSet
+        .Where(a => 
+        (string.IsNullOrEmpty(clientName) || a.Client.Name.Contains(clientName)) &&
+        (string.IsNullOrEmpty(clientDoc) || a.Client.Doc.Contains(clientDoc)))
+        .AsQueryable();
 }

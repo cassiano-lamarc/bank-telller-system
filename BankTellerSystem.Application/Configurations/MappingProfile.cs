@@ -10,6 +10,7 @@ public class MappingProfile : Profile
     {
         CreateMap<Account, RegisteredAccounts>()
             .ForMember(a => a.ClientName, opt => opt.MapFrom(src => src.Client.Name))
+            .ForMember(a => a.ClientDocument, opt => opt.MapFrom(src => src.Client.Doc))
             .ForMember(a => a.AccountGuid, opt => opt.MapFrom(src => src.Guid))
             .ForMember(a => a.AccountStatus, opt => opt.MapFrom(src => src.Status));
     }
