@@ -40,7 +40,7 @@ public class AccountController : BaseController
     public async Task<IActionResult> Delete([FromQuery] DeactiveAccountCommand request, CancellationToken cancellationToken)
         => Ok(await _mediator.Send(request, cancellationToken));
 
-    [HttpPut]
+    [HttpPut("transfer")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(typeof(BusinessException), StatusCodes.Status400BadRequest)]

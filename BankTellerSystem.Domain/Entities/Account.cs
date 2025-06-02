@@ -37,7 +37,12 @@ public sealed class Account : BaseEntity
     }
 
     public void RemoveAmount(decimal amount)
-        => CurrentBalance -= amount;
+    {
+        CurrentBalance = CurrentBalance - amount;
+    }
 
-    public void AddAmount(decimal amount) => CurrentBalance += amount;
+    public void AddAmount(decimal amount)
+    {
+        CurrentBalance = CurrentBalance + amount;
+    }
 }
