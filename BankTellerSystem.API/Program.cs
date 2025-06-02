@@ -21,6 +21,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 var app = builder.Build();
 
 if (!app.Environment.IsProduction())
